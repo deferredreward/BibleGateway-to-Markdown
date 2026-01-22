@@ -110,6 +110,10 @@ opt_parser = OptionParser.new do |o|
   o.on('-l', '--newline', 'Start chapters and verses on newline with H5 or H6 heading') do
     opts[:newline] = true
   end
+  opts[:clipboard] = true
+  o.on('-C', '--no-clipboard', 'Do not copy output to clipboard') do
+    opts[:clipboard] = false
+  end
   opts[:numbering] = true
   o.on('-n', '--numbering', 'Exclude verse and chapter numbers') do
     opts[:numbering] = false
@@ -452,5 +456,5 @@ output_text += copyright.to_s if opts[:copyright]
 # Then write out text
 puts
 puts output_text
-# And also copy it to clipboard
-Clipboard.copy(output_text)
+# And also copy it to clipboard (if enabled)
+Clipboard.copy(output_text) if opts[:clipboard]
